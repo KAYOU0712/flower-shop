@@ -14,20 +14,27 @@ const processedOrders = new Set();
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
+// 添加根路由处理
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // 配置邮件发送器
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'lvjiayang0712@gmail.com',
-        pass: 'yybq sfsg hjbg emty'  // 应用专用密码
+        user: process.env.GMAIL_USER || 'lvjiayang0712@gmail.com',
+        pass: process.env.GMAIL_PASS || 'yybq sfsg hjbg emty'
     }
 });
 
 // Google Sheets API配置
 const sheets = google.sheets('v4');
-const SPREADSHEET_ID = '1M-DHqoV5FYCz-B1o2URls3UIBj8XA2dCQkPtNp3_7Y8';
+const SPREADSHEET_ID = process.env.SPREADSHEET_ID || '1M-DHqoV5FYCz-B1o2URls3UIBj8XA2dCQkPtNp3_7Y8';
 const auth = new google.auth.GoogleAuth({
-    keyFile: 'credentials.json',
+    credentials: process.env.GOOGLE_SHEETS_CREDENTIALS ? 
+        JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS) : 
+        require('./credentials.json'),
     scopes: ['https://www.googleapis.com/auth/spreadsheets']
 });
 
@@ -386,8 +393,13 @@ cron.schedule('*/5 * * * *', async () => {
     }
 });
 
+// 添加通配符路由处理所有其他请求
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // 启动服务器
-app.listen(port, 'localhost', () => {
+app.listen(port, () => {
     console.log('=================================');
     console.log('🌸 フラワーショップサーバー起動中');
     console.log(`🌐 サーバーアドレス: http://localhost:${port}`);

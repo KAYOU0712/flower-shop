@@ -19,6 +19,14 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// 添加通配符路由处理所有其他请求
+app.get('*', (req, res) => {
+    if (req.path.startsWith('/api')) {
+        return next();
+    }
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // 配置邮件发送器
 const transporter = nodemailer.createTransport({
     service: 'gmail',

@@ -1,31 +1,25 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.js",
-      "use": "@vercel/static"
-    }
+      {
+          "src": "server.js",
+          "use": "@vercel/node"
+      }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+      {
+          "src": "/api/(.*)",
+          "dest": "/server.js"
+      },
+      {
+          "src": "/(.*)",
+          "dest": "/server.js"
+      }
+  ],
+  "env": {
+      "GOOGLE_SHEETS_CREDENTIALS": "@google-sheets-credentials",
+      "GMAIL_USER": "lvjiayang0712@gmail.com",
+      "GMAIL_PASS": "yybq sfsg hjbg emty",
+      "SPREADSHEET_ID": "1M-DHqoV5FYCz-B1o2URls3UIBj8XA2dCQkPtNp3_7Y8"
+  }
 }

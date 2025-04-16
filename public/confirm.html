@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注文確認 - フラワーショップTANHUI_Lumos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="confirmationSection">
+            <h1>注文内容の確認</h1>
+            
+            <section class="confirmation-section">
+                <h2>お客様情報</h2>
+                <table class="info-table">
+                    <tr>
+                        <th>お名前</th>
+                        <td id="customerName"></td>
+                    </tr>
+                    <tr>
+                        <th>ご住所</th>
+                        <td id="customerAddress"></td>
+                    </tr>
+                    <tr>
+                        <th>電話番号</th>
+                        <td id="customerPhone"></td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td id="customerEmail"></td>
+                    </tr>
+                    <tr id="lineIdRow" style="display: none;">
+                        <th>LINE ID</th>
+                        <td id="customerLine"></td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="confirmation-section">
+                <h2>ご注文内容</h2>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>商品</th>
+                            <th>数量</th>
+                            <th>金額</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderDetails">
+                        <!-- JavaScript で動的に生成 -->
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="confirmation-section">
+                <h2>配送希望日時</h2>
+                <table class="info-table">
+                    <tr>
+                        <th>第一希望</th>
+                        <td id="deliveryFirst"></td>
+                    </tr>
+                    <tr>
+                        <th>第二希望</th>
+                        <td id="deliverySecond"></td>
+                    </tr>
+                    <tr>
+                        <th>第三希望</th>
+                        <td id="deliveryThird"></td>
+                    </tr>
+                </table>
+            </section>
+
+            <div class="button-group">
+                <button id="backButton" class="secondary-button">戻る</button>
+                <button id="confirmButton" class="primary-button">注文を確定する</button>
+            </div>
+        </div>
+
+        <div id="thankYouSection" style="display: none;">
+            <h2>ご注文ありがとうございます</h2>
+            <p>ご注文の確認メールをお送りしました。</p>
+            <p>内容をご確認ください。</p>
+            <p>ご不明な点がございましたら、お気軽にお問い合わせください。</p>
+        </div>
+    </div>
+    <script src="confirm.js"></script>
+</body>
+</html>

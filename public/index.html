@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フラワーショップ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: url('背景.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 其他样式保持不变 */
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>フラワーショップ 注文フォーム</h1>
+        <form id="orderForm">
+            <!-- 商品選択セクション -->
+            <section class="form-section">
+                <h2>商品選択</h2>
+                
+                <!-- 旬の花 800円 -->
+                <div class="product-item">
+                    <h3>旬の花 800円</h3>
+                    <div class="product-images" id="seasonal800Images"></div>
+                    <div class="product-options">
+                        <div class="size-selection">
+                            <label for="seasonal800Size">番号:</label>
+                            <select id="seasonal800Size" name="seasonal800Size">
+                                <option value="1">1番</option>
+                                <option value="2">2番</option>
+                                <option value="3">3番</option>
+                            </select>
+                        </div>
+                        <div class="quantity-selection">
+                            <label for="seasonal800Quantity">数量:</label>
+                            <input type="number" id="seasonal800Quantity" name="seasonal800Quantity" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 旬の花 1,200円 -->
+                <div class="product-item">
+                    <h3>旬の花 1,200円</h3>
+                    <div class="product-images" id="seasonal1200Images"></div>
+                    <div class="product-options">
+                        <div class="size-selection">
+                            <label for="seasonal1200Size">番号:</label>
+                            <select id="seasonal1200Size" name="seasonal1200Size">
+                                <option value="1">1番</option>
+                                <option value="2">2番</option>
+                                <option value="3">3番</option>
+                            </select>
+                        </div>
+                        <div class="quantity-selection">
+                            <label for="seasonal1200Quantity">数量:</label>
+                            <input type="number" id="seasonal1200Quantity" name="seasonal1200Quantity" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- オーダーメイド -->
+                <div class="product-item">
+                    <h3>オーダーメイド</h3>
+                    <div class="product-images" id="customImages"></div>
+                    <div class="product-options">
+                        <div class="size-selection">
+                        </div>
+                        <div class="price-selection">
+                            <label for="customPrice">価格:</label>
+                            <input type="number" id="customPrice" name="customPrice" min="1000" step="100" value="1000">
+                        </div>
+                        <div class="quantity-selection">
+                            <label for="customQuantity">数量:</label>
+                            <input type="number" id="customQuantity" name="customQuantity" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商品注意事项（统一放在所有商品下方） -->
+                <div class="notice-section">
+                    <p class="notice">
+                        ※生花商品は、いかなる理由でも返品・交換はできません。<br>
+                        ※生花市場や仕入れ状況により、旬の花は毎週更新されます。デザインや色はご指定いただけません。<br>
+                        ※世界に同じ花や葉は二つとありません。季節により、オーダーメイドの仕上がりはサンプル画像と異なる場合がございます。ご了承ください。
+                    </p>
+                </div>
+            </section>
+
+            <!-- クーポンセクション -->
+            <section class="form-section">
+                <h2>クーポン</h2>
+                <div class="coupon-input">
+                    <input type="text" id="couponCode" name="couponCode" placeholder="クーポンコードを入力">
+                    <button type="button" id="applyCoupon">適用</button>
+                </div>
+                <div id="couponMessage"></div>
+            </section>
+
+            <!-- 合計金額 -->
+            <section class="form-section">
+                <div class="total-amount">
+                    <h2>合計金額: <span id="totalAmount">0</span>円</h2>
+                </div>
+            </section>
+
+            <!-- お客様情報セクション -->
+            <section class="form-section">
+                <h2>お客様情報</h2>
+                <div class="form-group">
+                    <label for="name">お名前 *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">ご住所 *</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">電話番号 *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="lineId">LINE ID（任意）</label>
+                    <input type="text" id="lineId" name="lineId">
+                </div>
+            </section>
+
+            <!-- 配送希望日時セクション -->
+            <section class="form-section">
+                <h2>配送希望日時</h2>
+                <!-- 第一希望 -->
+                <div class="delivery-preference">
+                    <h3>第一希望 *</h3>
+                    <div class="form-group">
+                        <label for="firstDate">日付:</label>
+                        <input type="date" id="firstDate" name="firstDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstTime">時間帯:</label>
+                        <select id="firstTime" name="firstTime" required>
+                            <option value="morning">午前中</option>
+                            <option value="afternoon">14:00-16:00</option>
+                            <option value="evening">16:00-18:00</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 第二希望 -->
+                <div class="delivery-preference">
+                    <h3>第二希望 *</h3>
+                    <div class="form-group">
+                        <label for="secondDate">日付:</label>
+                        <input type="date" id="secondDate" name="secondDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="secondTime">時間帯:</label>
+                        <select id="secondTime" name="secondTime" required>
+                            <option value="morning">午前中</option>
+                            <option value="afternoon">14:00-16:00</option>
+                            <option value="evening">16:00-18:00</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 第三希望 -->
+                <div class="delivery-preference">
+                    <h3>第三希望 *</h3>
+                    <div class="form-group">
+                        <label for="thirdDate">日付:</label>
+                        <input type="date" id="thirdDate" name="thirdDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="thirdTime">時間帯:</label>
+                        <select id="thirdTime" name="thirdTime" required>
+                            <option value="morning">午前中</option>
+                            <option value="afternoon">14:00-16:00</option>
+                            <option value="evening">16:00-18:00</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <button type="submit" class="submit-button">確認画面へ</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

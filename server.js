@@ -12,19 +12,19 @@ const processedOrders = new Set();
 
 // 中间件
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 添加根路由处理
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 添加通配符路由处理所有其他请求
+// 添加通配符路由处理
 app.get('*', (req, res) => {
     if (req.path.startsWith('/api')) {
         return next();
     }
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // 配置邮件发送器
